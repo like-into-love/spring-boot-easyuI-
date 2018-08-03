@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.mapper.NavAdminMapper">
+	<resultMap id="BaseResultMap" type="com.boot.pojo.NavAdmin">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="text" jdbcType="VARCHAR" property="text" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+		<result column="icon_cls" jdbcType="VARCHAR" property="iconCls" />
+		<result column="parent_id" jdbcType="BIGINT" property="parentId" />
+		<result column="created" jdbcType="TIMESTAMP" property="created" />
+		<result column="updated" jdbcType="TIMESTAMP" property="updated" />
+		<result column="href" jdbcType="VARCHAR" property="href" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, text, state, icon_cls, parent_id, created, updated, href
+	</sql>
+	<select id="selectByExample" parameterType="com.boot.pojo.NavAdminExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from nav_admin
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="startRow != null and pageSize != null and pageSize != 0">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from nav_admin
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from nav_admin
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.boot.pojo.NavAdminExample">
+		delete from nav_admin
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.boot.pojo.NavAdmin">
+		insert into nav_admin (id, text, state,
+		icon_cls, parent_id, created,
+		updated, href)
+		values (#{id,jdbcType=BIGINT}, #{text,jdbcType=VARCHAR},
+		#{state,jdbcType=VARCHAR},
+		#{iconCls,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP},
+		#{updated,jdbcType=TIMESTAMP}, #{href,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.boot.pojo.NavAdmin">
+		insert into nav_admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="text != null">
+				text,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="iconCls != null">
+				icon_cls,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="updated != null">
+				updated,
+			</if>
+			<if test="href != null">
+				href,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="text != null">
+				#{text,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=VARCHAR},
+			</if>
+			<if test="iconCls != null">
+				#{iconCls,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updated != null">
+				#{updated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="href != null">
+				#{href,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.boot.pojo.NavAdminExample"
+		resultType="java.lang.Long">
+		select count(*) from nav_admin
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update nav_admin
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.text != null">
+				text = #{record.text,jdbcType=VARCHAR},
+			</if>
+			<if test="record.state != null">
+				state = #{record.state,jdbcType=VARCHAR},
+			</if>
+			<if test="record.iconCls != null">
+				icon_cls = #{record.iconCls,jdbcType=VARCHAR},
+			</if>
+			<if test="record.parentId != null">
+				parent_id = #{record.parentId,jdbcType=BIGINT},
+			</if>
+			<if test="record.created != null">
+				created = #{record.created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updated != null">
+				updated = #{record.updated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.href != null">
+				href = #{record.href,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update nav_admin
+		set id = #{record.id,jdbcType=BIGINT},
+		text = #{record.text,jdbcType=VARCHAR},
+		state = #{record.state,jdbcType=VARCHAR},
+		icon_cls = #{record.iconCls,jdbcType=VARCHAR},
+		parent_id = #{record.parentId,jdbcType=BIGINT},
+		created = #{record.created,jdbcType=TIMESTAMP},
+		updated = #{record.updated,jdbcType=TIMESTAMP},
+		href = #{record.href,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.boot.pojo.NavAdmin">
+		update nav_admin
+		<set>
+			<if test="text != null">
+				text = #{text,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=VARCHAR},
+			</if>
+			<if test="iconCls != null">
+				icon_cls = #{iconCls,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updated != null">
+				updated = #{updated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="href != null">
+				href = #{href,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.boot.pojo.NavAdmin">
+		update nav_admin
+		set text = #{text,jdbcType=VARCHAR},
+		state = #{state,jdbcType=VARCHAR},
+		icon_cls = #{iconCls,jdbcType=VARCHAR},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		created = #{created,jdbcType=TIMESTAMP},
+		updated = #{updated,jdbcType=TIMESTAMP},
+		href = #{href,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

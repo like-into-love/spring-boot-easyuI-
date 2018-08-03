@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!--取值  -->
+	<span th:text="${key}"></span>
+	<!--取集合  -->
+	</tr>
+	<table border="1">
+		<tr th:each="m,iterStat : ${list}">
+			<td th:text="|下标：${iterStat.index} 下标是不是单数：${iterStat.odd}|" />
+			<td th:text="${m}" />
+		</tr>
+	</table>
+
+</body>
+</html>
